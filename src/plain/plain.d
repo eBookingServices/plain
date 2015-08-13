@@ -31,11 +31,11 @@ private bool isAbsoluteHRef(const(char)[] href) {
 
 
 struct Options {
-	uint wrap = 78;
-	uint indent;
-	dchar listMarker = '*';
-	string baseHRef;
-	string[] skipElements;
+	uint wrap = 78;			// wrap column
+	uint indent;			// global indent
+	dchar listMarker = '*'; // list item decorator
+	string baseHRef;		// base URL for local hrefs
+	string[] skipElements;	// CSS selector of elements to skip
 }
 
 

@@ -6,6 +6,19 @@ It does not handle complex layouts, but it's pretty good for emails.
 
 Uses [htmld](https://github.com/eBookingServices/htmld).
 
+
+Options:
+```d
+struct Options {
+	uint wrap = 78;			// wrap column
+	uint indent;			// global indent
+	dchar listMarker = '*'; // list item decorator
+	string baseHRef;		// base URL for local hrefs
+	string[] skipElements;	// CSS selector of elements to skip
+}
+```
+
+
 Example usage:
 ```d
 import plain;
