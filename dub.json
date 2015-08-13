@@ -1,0 +1,12 @@
+{
+	"name": "plain",
+	"description": "Convert HTML to plain text",
+	"copyright": "Copyright © 2015, Márcio Martins",
+	"authors": ["Márcio Martins"],
+	"license": "MIT License",
+	"targetType": "library",
+	"targetName": "plain",
+	"dependencies": {
+		"htmld": "~>0.2.6"
+	}
+}
