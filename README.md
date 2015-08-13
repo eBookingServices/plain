@@ -21,7 +21,7 @@ auto text = toplain(`
                     </p>
                     <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut faucibus sed leo a malesuada. Pellentesque sit amet varius massa. Suspendisse laoreet dui est, facilisis viverra turpis ornare a. Proin bibendum laoreet orci, nec sollicitudin libero egestas sed. Nam ac metus vulputate nisi scelerisque ornare. In hac habitasse platea dictumst. Aenean tempus tempus leo, nec maximus quam dignissim non.
                     </p>
-                    <p><img alt="girafe" href="http://www.jaunted.com/files/22421/2012_05_09_JA___BabyGiraffe.jpg" /></p>
+                    <p><img alt="girafe" src="http://www.jaunted.com/files/22421/2012_05_09_JA___BabyGiraffe.jpg" /></p>
                 </td>
                 <td></td>
             </tr>
@@ -79,7 +79,7 @@ sollicitudin libero egestas sed. Nam ac metus vulputate nisi scelerisque
 ornare. In hac habitasse platea dictumst. Aenean tempus tempus leo, nec
 maximus quam dignissim non.
 
-[girafe]
+[girafe http://www.jaunted.com/files/22421/2012_05_09_JA___BabyGiraffe.jpg]
 
 ------------------------------------------------------------------------------
 LISTS
