@@ -108,8 +108,10 @@ private void traverse(Appender)(ref Appender app, Node* node, ref TraverseState 
 			auto start = app.data.length;
 			foreach(child; node.children)
 				traverse(app, child, state);
-			auto label = app.data[start..$];
-			label = label.strip;
+			auto label = cast(string)app.data[start..$].strip;
+			
+			if (label.empty && node.hasAttr("title"))
+				label = cast(string)node.attr("title").strip;
 
 			auto href = node.hasAttr("href") ? node.attr("href").strip : null;
 			if (href == label)
