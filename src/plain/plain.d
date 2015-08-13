@@ -89,7 +89,7 @@ private auto textFormat(Appender)(ref Appender app, HTMLString text, ref Travers
 		}
 	}
 
-	state.line = length;
+	state.line = cast(uint)length;
 }
 
 
@@ -215,7 +215,7 @@ private void traverse(Appender)(ref Appender app, Node* node, ref TraverseState 
 			if (itemCount) {
 				auto olState = state;
 				olState.index = 1;
-				olState.indexWidth = itemCount.to!string.length;
+				olState.indexWidth = cast(uint)(itemCount.to!string.length);
 
 				foreach(child; node.children)
 					traverse(app, child, olState);
