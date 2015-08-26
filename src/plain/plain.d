@@ -9,6 +9,7 @@ import std.range;
 import std.regex;
 import std.string;
 import std.uni;
+import std.utf;
 
 
 import html.dom;
@@ -64,26 +65,44 @@ private auto textFormat(Appender)(ref Appender app, HTMLString text, ref Travers
 		if (word.empty)
 			continue;
 
-		if ((words == 0) && !state.line && !state.skipOneIndent)
-			app.put(' '.repeat(state.indent));
+		if ((words == 0) && !state.line) {
+			if (!state.skipOneIndent) {
+				app.put(' '.repeat(state.indent));
+			} else {
+				state.skipOneIndent = false;
+			}
+		}
 		++words;
 
-		if (!state.wrap || (length + 1 + word.length <= state.wrap)) {
-			if (length != 0) {
+		size_t wordLength = 0;
+		foreach(d; word.byDchar)
+			++wordLength;
+
+		auto extra = ((length != 0) && (length != state.wrap)) ? 1 : 0;
+		if (!state.wrap || (length + extra + wordLength <= state.wrap)) {
+			if (extra) {
 				app.put(' ');
 				++length;
 			}
+
 			app.put(word);
-			length += word.length;
+			length += wordLength;
 		} else {
-			while (word.length) {
+			while (wordLength) {
 				app.put('\n');
 				app.put(' '.repeat(state.indent));
 
-				auto span = min(word.length, state.wrap);
-				app.put(word[0..span]);
-				word = word[span..$];
-				length = span;
+				if (wordLength <= state.wrap) {
+					app.put(word);
+					length = wordLength;
+					wordLength = 0;
+				} else {
+					auto indexSplit = word.toUCSindex(state.wrap);
+					app.put(word[0..indexSplit]);
+					word = word[indexSplit..$];
+					length = state.wrap;
+					wordLength -= state.wrap;
+				}
 				++lines;
 			}
 		}
