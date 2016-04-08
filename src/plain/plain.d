@@ -37,6 +37,7 @@ struct Options {
 	dchar listMarker = '*'; // list item decorator
 	string baseHRef;		// base URL for local hrefs
 	string[] skipElements;	// CSS selector of elements to skip
+	bool solidLinks = true;	// keep links in a single line
 }
 
 
@@ -56,7 +57,7 @@ private struct TraverseState {
 }
 
 
-private auto textFormat(Appender)(ref Appender app, HTMLString text, ref TraverseState state) {
+private auto textFormat(Appender)(ref Appender app, HTMLString text, ref TraverseState state, bool link = false) {
 	size_t lines = 1;
 	size_t words = 0;
 	size_t length = state.line;
@@ -92,7 +93,7 @@ private auto textFormat(Appender)(ref Appender app, HTMLString text, ref Travers
 				app.put('\n');
 				app.put(' '.repeat(state.indent));
 
-				if (wordLength <= state.wrap) {
+				if ((link && state.options.solidLinks) || (wordLength <= state.wrap)) {
 					app.put(word);
 					length = wordLength;
 					wordLength = 0;
@@ -128,7 +129,7 @@ private void traverse(Appender)(ref Appender app, Node* node, ref TraverseState 
 			foreach(child; node.children)
 				traverse(app, child, state);
 			auto label = cast(string)app.data[start..$].strip;
-			
+
 			if (label.empty && node.hasAttr("title"))
 				label = cast(string)node.attr("title").strip;
 
@@ -148,7 +149,7 @@ private void traverse(Appender)(ref Appender app, Node* node, ref TraverseState 
 
 			if (!href.empty) {
 				auto space = (!app.data.empty && (app.data.back != '\n')) ? " " : "";
-				textFormat(app, format("%s[%s%s]", space, (absolute ? "" : state.options.baseHRef), href), state);
+				textFormat(app, format("%s[%s%s]", space, (absolute ? "" : state.options.baseHRef), href), state, true);
 			}
 			break;
 
@@ -164,7 +165,7 @@ private void traverse(Appender)(ref Appender app, Node* node, ref TraverseState 
 
 			if (hasSrc) {
 				auto absolute = src.isAbsoluteHRef;
-				textFormat(app, format("[%s %s%s]", label, (absolute ? "" : state.options.baseHRef), src), state);
+				textFormat(app, format("[%s %s%s]", label, (absolute ? "" : state.options.baseHRef), src), state, true);
 			} else if (!label.empty)  {
 				textFormat(app, format("[%s]", label), state);
 			}
