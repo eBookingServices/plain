@@ -98,7 +98,7 @@ private auto textFormat(Appender)(ref Appender app, HTMLString text, ref Travers
 					length = wordLength;
 					wordLength = 0;
 				} else {
-					auto indexSplit = word.toUCSindex(state.wrap);
+					auto indexSplit = word.toUTFindex(state.wrap);
 					app.put(word[0..indexSplit]);
 					word = word[indexSplit..$];
 					length = state.wrap;
