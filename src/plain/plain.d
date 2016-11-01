@@ -3,6 +3,7 @@ module plain.plain;
 
 import std.algorithm;
 import std.array;
+import std.ascii;
 import std.conv;
 import std.format;
 import std.range;
