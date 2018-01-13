@@ -315,7 +315,7 @@ string toplain(Node* root, Options options = Options()) {
 }
 
 
-string toplain(Document doc, Options options = Options()) {
+string toplain(ref Document doc, Options options = Options()) {
 	auto app = appender!string;
 	toplain(app, doc.root, options);
 	return app.data;

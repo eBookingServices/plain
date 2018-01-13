@@ -7,6 +7,6 @@
 	"targetType": "library",
 	"targetName": "plain",
 	"dependencies": {
-		"htmld": "~>0.2.6"
+		"htmld": "~>0.2.19"
 	}
 }
