@@ -114,7 +114,7 @@ private auto textFormat(Appender)(ref Appender app, HTMLString text, ref Travers
 }
 
 
-private void traverse(Appender)(ref Appender app, Node* node, ref TraverseState state) {
+private void traverse(Appender)(ref Appender app, Node node, ref TraverseState state) {
 	final switch (node.type) with (NodeTypes) {
 	case Element:
 		foreach(selector; state.skipElements) {
@@ -293,7 +293,7 @@ private void traverse(Appender)(ref Appender app, Node* node, ref TraverseState 
 }
 
 
-void toplain(Appender)(ref Appender app, Node* root, Options options = Options()) {
+void toplain(Appender)(ref Appender app, Node root, Options options = Options()) {
 	TraverseState state;
 	state.options = options;
 	state.wrap = options.wrap;
@@ -308,7 +308,7 @@ void toplain(Appender)(ref Appender app, Node* root, Options options = Options()
 }
 
 
-string toplain(Node* root, Options options = Options()) {
+string toplain(Node root, Options options = Options()) {
 	auto app = appender!string;
 	toplain(app, root, options);
 	return app.data;
